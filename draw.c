@@ -29,7 +29,7 @@ void add_polygon( struct matrix *polygons,
 		  double x2, double y2, double z2 ) {
   add_point(polygons, x0, y0, z0);
   add_point(polygons, x1, y1, z1);
-  add_point(polygons, x1, y1, z1);
+  add_point(polygons, x2, y2, z2);
 }
 
 /*======== void draw_polygons() ==========
@@ -48,17 +48,26 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
  }
  
   int point, remx, remy;
- for (point=0; point < points->lastcol-1; point+=1)
-   if(point % 3 == 0){
-     remx = points->m[0][point];
-     remy = points->m[1][point];
-   }
-     
-   draw_line( points->m[0][point],
-	      points->m[1][point],
-	      points->m[0][point+1],
-	      points->m[1][point+1],
-	      s, c);
+  for (point=0; point < points->lastcol-1; point+=1){
+    if(point % 3 == 0){
+      remx = points->m[0][point];
+      remy = points->m[1][point];
+    }
+    if(point % 3 == 2){  
+      draw_line( points->m[0][point],
+		 points->m[1][point],
+		 remx,
+		 remy,
+		 s, c);
+    }
+    else{
+      draw_line( points->m[0][point],
+		 points->m[1][point],
+		 points->m[0][point+1],
+		 points->m[1][point+1],
+		 s, c);
+    }
+  }
 }
 
 
