@@ -16,7 +16,6 @@ Inputs:   char * filename
           struct matrix * pm,
           screen s
 Returns: 
-
 Goes through the file named filename and performs all of the actions listed in that file.
 The file follows the following format:
      Every command is a single character that takes up a line
@@ -28,7 +27,6 @@ The file follows the following format:
 	    takes 5 arguemnts (cx, cy, cz, r1, r2)
          box: add a rectangular prism to the edge matrix - 
 	    takes 6 arguemnts (x, y, z, width, height, depth)	    
-
 	 circle: add a circle to the edge matrix - 
 	    takes 4 arguments (cx, cy, cz, r)	    
 	 hermite: add a hermite curve to the edge matrix -
@@ -55,9 +53,7 @@ The file follows the following format:
 	    save the screen to a file -
 	    takes 1 argument (file name)
 	 quit: end parsing
-
 See the file script for an example of the file format
-
 IMPORTANT MATH NOTE:
 the trig functions int math.h use radian mesure, but us normal
 humans use degrees, so the file will contain degrees for rotations,
@@ -231,7 +227,7 @@ void parse_file ( char * filename,
     else if ( strncmp(line, "display", strlen(line)) == 0 ) {
       //printf("DISPLAY\t%s", line);
       clear_screen(s);
-      draw_lines(edges, s, c);
+      draw_polygons(edges, s, c);
       display( s );
     }//end display
 
@@ -246,4 +242,3 @@ void parse_file ( char * filename,
     
   }
 }
-  

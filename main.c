@@ -1,37 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "ml6.h"
 #include "display.h"
 #include "draw.h"
 #include "matrix.h"
+#include "parser.h"
 
-int main() {
+int main(int argc, char **argv) {
 
   screen s;
-  struct matrix *edges;
-  struct matrix *edges2;
-  struct matrix *edges3;
-
-  color c;
- 
-  
-  c.red = 0;
-  c.green = MAX_COLOR;
-  c.blue = MAX_COLOR;
-
-  clear_screen(s);
+  struct matrix * edges;
+  struct matrix * transform;
 
   edges = new_matrix(4, 4);
-  
-  add_polygon(edges,50.0,50.0,7.0,100.0,50.0,90.0,234.0,320.0,400.0);
-  
-  print_matrix(edges);
-  draw_polygons(edges,s,c);
-  
-  display(s);
-  save_extension(s, "matrix.png");
+  transform = new_matrix(4, 4);
 
-  free_matrix(edges);
-}
+  /* print_matrix( make_bezier() ); */
+  /* printf("\n"); */
+  /* print_matrix( make_hermite() ); */
+  argc = 2;
+  argv[1] = "script";
+
+  if ( argc == 2 )
+    parse_file( argv[1], transform, edges, s );
+  else
+    parse_file( "stdin", transform, edges, s );
+
+  
+  free_matrix( edges );
+  free_matrix( transform );
+}  
