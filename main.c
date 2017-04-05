@@ -25,7 +25,7 @@ int main() {
 
   edges = new_matrix(4, 4);
   
-  add_polygon(edges,50.0,50.0,78.0,100.0,50.0,35.0,234.0,320.0,98.0);
+  add_polygon(edges,50.0,50.0,7.0,100.0,50.0,90.0,234.0,320.0,400.0);
   
   print_matrix(edges);
   draw_polygons(edges,s,c);
@@ -33,5 +33,5 @@ int main() {
   display(s);
   save_extension(s, "matrix.png");
 
-  free_matrix( edges);
+  free_matrix(edges);
 }

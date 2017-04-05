@@ -47,12 +47,13 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
     return;
   }
   int point, remx, remy;
-  for (point=0; point < points->lastcol-1; point+=1){
+  for (point=0; point < points->lastcol; point+=1){
     if(point % 3 == 0){
       remx = points->m[0][point];
       remy = points->m[1][point];
     }
-    if(point % 3 == 2){  
+    if(point % 3 == 2){
+      printf("here");
       draw_line( points->m[0][point],
   		 points->m[1][point],
   		 remx,
