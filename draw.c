@@ -43,10 +43,9 @@ triangles
 ====================*/
 void draw_polygons( struct matrix *points, screen s, color c ) {
   if ( points->lastcol < 3 ) {
-   printf("Need at least 3 points to draw a line!\n");
-   return;
- }
- 
+    printf("Need at least 3 points to draw a line!\n");
+    return;
+  }
   int point, remx, remy;
   for (point=0; point < points->lastcol-1; point+=1){
     if(point % 3 == 0){
@@ -55,10 +54,10 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
     }
     if(point % 3 == 2){  
       draw_line( points->m[0][point],
-		 points->m[1][point],
-		 remx,
-		 remy,
-		 s, c);
+  		 points->m[1][point],
+  		 remx,
+  		 remy,
+  		 s, c);
     }
     else{
       draw_line( points->m[0][point],

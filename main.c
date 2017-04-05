@@ -19,13 +19,13 @@ int main() {
   
   c.red = 0;
   c.green = MAX_COLOR;
-  c.blue = 0;
+  c.blue = MAX_COLOR;
 
   clear_screen(s);
 
   edges = new_matrix(4, 4);
   
-  add_polygon(edges,6,7,0,56,78,0,234,320,0);
+  add_polygon(edges,50.0,50.0,78.0,100.0,50.0,35.0,234.0,320.0,98.0);
   
   print_matrix(edges);
   draw_polygons(edges,s,c);
