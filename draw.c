@@ -53,7 +53,7 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
       remy = points->m[1][point];
     }
     if(point % 3 == 2){
-      printf("here");
+      //printf("here");
       draw_line( points->m[0][point],
   		 points->m[1][point],
   		 remx,
@@ -100,7 +100,7 @@ void add_box( struct matrix * edges,
   //front
   add_polygon(edges, x0, y0, z0, x0, y1, z0, x1, y1, z0);
   add_polygon(edges, x1, y1, z0, x1, y0, z0, x0, y0, z0);
-  print_matrix(edges);
+  //print_matrix(edges);
   //side 1
   add_polygon(edges,x0,y0,z0,x0,y0,z1,x0,y1,z0);
   add_polygon(edges,x0,y1,z0,x0,y1,z1,x0,y0,z1);
@@ -152,16 +152,29 @@ void add_sphere( struct matrix * edges,
   num_steps++;
   for ( lat = latStart; lat < latStop; lat++ ) {
     for ( longt = longStart; longt <= longStop; longt++ ) {
-
       index = lat * (num_steps) + longt;
-      add_edge( edges, points->m[0][index],
-		points->m[1][index],
-		points->m[2][index],
-		points->m[0][index] + 1,
-		points->m[1][index] + 1,
-		points->m[2][index] + 1);
+      add_polygon( edges,
+		   points->m[0][index],
+		   points->m[1][index],
+		   points->m[2][index],
+		   points->m[0][index + 1] ,
+		   points->m[1][index + 1] ,
+		   points->m[2][index + 1],
+		   points->m[0][index + num_steps + 1] ,
+		   points->m[1][index + num_steps + 1] ,
+		   points->m[2][index + num_steps + 1]);
+      add_polygon( edges,
+		   points->m[0][index + 1],
+		   points->m[1][index + 1],
+		   points->m[2][index + 1],
+		   points->m[0][index + num_steps + 1] ,
+		   points->m[1][index + num_steps + 1] ,
+		   points->m[2][index + num_steps + 1],
+		   points->m[0][index + num_steps + 2] ,
+		   points->m[1][index + num_steps + 2] ,
+		   points->m[2][index + num_steps + 2]);
     }
-  }  
+  }
   free_matrix(points);
 }
 
