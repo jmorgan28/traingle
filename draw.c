@@ -255,7 +255,6 @@ void add_torus( struct matrix * edges,
   latStop = num_steps;
   longStart = 0;
   longStop = num_steps;
-  num_steps++;
   for ( lat = latStart; lat < latStop; lat++ ) {
     for ( longt = longStart; longt <= longStop; longt++ ) {
       index = lat * (num_steps) + longt;
