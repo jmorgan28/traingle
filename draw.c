@@ -48,6 +48,11 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
   }
   int point;
   for (point=0; point < points->lastcol; point+=3){
+    int ax = points->m[0][point + 1] - points->m[0][point];
+    int ay = points->m[1][point + 1] - points->m[1][point];
+    int bx = points->m[0][point + 2] - points->m[0][point];
+    int by = points->m[1][point + 2] - points->m[1][point]; 
+    if ((ax * by - ay * bx) > 0){
       draw_line( points->m[0][point],
 		 points->m[1][point],
 		 points->m[0][point+1],
@@ -63,6 +68,7 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
 		 points->m[0][point],
 		 points->m[1][point],
 		 s, c);
+    }
   }
 }
 /*======== void add_box() ==========
@@ -92,24 +98,24 @@ void add_box( struct matrix * edges,
   z1 = z-depth;
 
   //front
-  add_polygon(edges, x0, y0, z0, x0, y1, z0, x1, y1, z0);
-  add_polygon(edges, x1, y1, z0, x1, y0, z0, x0, y0, z0);
+  add_polygon(edges, x1, y0, z0, x0, y0, z0, x0, y1, z0);
+  add_polygon(edges, x1, y0, z0, x0, y1, z0, x1, y1, z0);
   //print_matrix(edges);
   //side 1
-  add_polygon(edges,x0,y0,z0,x0,y0,z1,x0,y1,z0);
-  add_polygon(edges,x0,y1,z0,x0,y1,z1,x0,y0,z1);
+  add_polygon(edges,x0,y0,z0,x0,y0,z1,x0,y1,z1);
+  add_polygon(edges,x0,y0,z0,x0,y1,z1,x0,y1,z0);
   //side 2
-  add_polygon(edges,x1,y0,z0,x1,y0,z1,x1,y1,z0);
-  add_polygon(edges,x1,y1,z0,x1,y1,z1,x1,y0,z1);
+  add_polygon(edges,x1,y0,z1,x1,y0,z0,x1,y1,z1);
+  add_polygon(edges,x1,y0,z0,x1,y1,z0,x1,y1,z1);
   //top
-  add_polygon(edges,x0,y0,z0,x0,y0,z1,x1,y0,z0);
-  add_polygon(edges,x0,y0,z0,x1,y0,z0,x0,y0,z1);
+  add_polygon(edges,x1,y0,z1,x0,y0,z0,x1,y0,z0);
+  add_polygon(edges,x1,y0,z1,x0,y0,z1,x0,y0,z0);
   //bottom
-  add_polygon(edges,x0,y1,z0,x0,y1,z1,x1,y1,z1);
-  add_polygon(edges,x0,y1,z0,x1,y1,z0,x1,y1,z1);
+  add_polygon(edges,x1,y1,z1,x1,y1,z0,x0,y1,z0);
+  add_polygon(edges,x1,y1,z1,x0,y1,z0,x0,y1,z1);
   //back
+  add_polygon(edges, x1, y0, z1, x0, y1, z1, x0, y1, z1);
   add_polygon(edges, x1, y0, z1, x1, y1, z1, x0, y1, z1);
-  add_polygon(edges, x0, y0, z1, x0, y1, z1, x1, y0, z1);
 
   
   
