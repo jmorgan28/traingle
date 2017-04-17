@@ -46,31 +46,25 @@ void draw_polygons( struct matrix *points, screen s, color c ) {
     printf("Need at least 3 points to draw a line!\n");
     return;
   }
-  int point, remx, remy;
-  for (point=0; point < points->lastcol; point+=1){
-    if(point % 3 == 0){
-      remx = points->m[0][point];
-      remy = points->m[1][point];
-    }
-    if(point % 3 == 2){
-      //printf("here");
-      draw_line( points->m[0][point],
-  		 points->m[1][point],
-  		 remx,
-  		 remy,
-  		 s, c);
-    }
-    else{
+  int point;
+  for (point=0; point < points->lastcol; point+=3){
       draw_line( points->m[0][point],
 		 points->m[1][point],
 		 points->m[0][point+1],
 		 points->m[1][point+1],
 		 s, c);
-    }
+      draw_line( points->m[0][point + 1],
+		 points->m[1][point + 1],
+		 points->m[0][point+ 2],
+		 points->m[1][point+ 2],
+		 s, c);
+      draw_line( points->m[0][point + 2],
+		 points->m[1][point + 2],
+		 points->m[0][point],
+		 points->m[1][point],
+		 s, c);
   }
 }
-
-
 /*======== void add_box() ==========
   Inputs:   struct matrix * edges
             double x
@@ -255,6 +249,7 @@ void add_torus( struct matrix * edges,
   latStop = num_steps;
   longStart = 0;
   longStop = num_steps;
+  num_steps++;
   for ( lat = latStart; lat < latStop; lat++ ) {
     for ( longt = longStart; longt <= longStop; longt++ ) {
       index = lat * (num_steps) + longt;
